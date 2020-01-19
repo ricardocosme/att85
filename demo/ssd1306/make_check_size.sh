@@ -12,5 +12,3 @@ avr-size init_display_adhoc.elf
 avr-size commands.elf
 avr-size commands_adhoc.elf
 avr-size 16x32.elf
-avr-size runtime_digits_16x32.elf
-avr-size runtime_digits_8x8.elf

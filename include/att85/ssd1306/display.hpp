@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include <att85/initializer_list>
 #include <att85/pin.hpp>
 #include <att85/ssd1306/c_str.hpp>
 #include <att85/ssd1306/detail/clear.hpp>

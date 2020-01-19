@@ -1,0 +1,6 @@
+*.[osd]
+*.elf
+*.lst
+demo/buzzer/beep
+demo/buzzer/beep_pause_beep
+demo/buzzer/beep_pause_beep_noclock

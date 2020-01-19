@@ -1,0 +1,139 @@
+* att85
+It's a collection of generic components written in C++17 to programming ATtiny85 microcontrollers with a [[#high-level-of-abstraction][high level of abstraction]], [[#code-reusability][code reusability]] and [[#high-space-efficiency][high space(memory) efficiency]].
+
+** Components 
+*** ssd1306
+An abstraction to represent an OLED SSD1306 display that is used through the I2C communication interface.
+
+**** Demo
+#+BEGIN_SRC C++
+#include <att85/ssd1306/display.hpp>
+#include <att85/ssd1306/font/8x8/chars.hpp>
+
+using namespace att85::ssd1306;
+
+int main() {
+    //Represents a SSD1306 display with resolution of 128x32 connected
+    //to a ATtiny85 through the pins SDA(PB0) and SCL(PB2). This
+    //display has an I2C address of the value 0x78, the screen is
+    //cleared on the initialization(which means the ctor execution)
+    //and the Charge Pump Regulator is used. Take a look at the class
+    //template `display` to know how to customize these properties to
+    //use your SSD1306 device.
+    display_128x32<> disp;
+
+    //It outputs a sequence of chars defined in compile-time at the
+    //position page=0 and column=0 of the display. One font with
+    //resolution 8x8 is used. Note, it's more efficient to use a
+    //compile-time instead of a run-time sequence when the length of
+    //the sequence isn't too much long.(You can consider a length less
+    //than eleven(11) chars as a reference)
+    disp.out<font::_8x8>(0, 0, ATT85_SSD1306_STR("alarm"));
+    
+    //Power on the display
+    disp.on();
+    
+    while(true);
+}
+#+END_SRC
+This program occupies 336 bytes of the program memory space using ~avr-g++ 8.2.0~ with ~-Os~.
+
+**** The first step
+The first step is construct an object that represents the display. The class template ~display~ has a collection of parameters to model the display that will be used in the circuit. There are aliases to common usages like a display with a 128x32 or 128x64 resolution that is manipulated through the pins SDA(PB0) and SCL(PB2), for example:
+#+BEGIN_SRC C++
+display_128x32<> disp; //this object is ready to receive commands and requests to output characters
+#+END_SRC
+Actually, this alias implies in other configurations like a display that uses the *Charge Pump Regulator* and have the slave address ~0x78~. 
+
+***** My display is connected through other pins, have other resolution or slave address. What I need to do?
+You can customize the instance of the class template with the arguments that are suitable to your case:
+#+BEGIN_SRC C++
+template<uint8_t Columns = 128,
+         uint8_t Rows = 64,
+         typename Scl_ = scl,
+         typename Sda_ = sda,
+         uint8_t Addr_ = 0b1111000 /*0x78*/,
+         typename ClearOnInitPolicy = ClearOnInit,
+         typename ChargePumpPolicy_ = commands::ChargePump,
+         typename DisplayClock_ = DefDisplayClock>
+class display;
+#+END_SRC
+
+**** Compile-time strings
+#+BEGIN_SRC C++
+disp.out<font::_8x8>(0, 0, ATT85_SSD1306_STR("alarm"));
+#+END_SRC
+We can have a more efficient code in space and in time using compile-time strings when it's possible to know the string before the run-time phase and that string isn't [[#how-much-is-too-long][too long]]. This approach avoids a waste of memory to store unused characters and the code that is necessary to handle strings that are only know in run-time.
+
+***** How much is too long?
+:PROPERTIES:
+:CUSTOM_ID: how-much-is-too-long
+:END:
+You can use a length greater than eleven(11) characters as a reference, but you should take your own measures between the two approaches: run-time and compile-time strings.
+
+**** Run-time strings
+#+BEGIN_SRC C++
+const char* digits;
+//digits assumes some value
+disp.out<font::_16x32>(0, 0, runtime::c_str<font::_16x32::digits>{digits});
+#+END_SRC
+If we have strings that are only know in run-time or have a [[#how-much-is-too-long][too long length]] we should use the minimal charset that represents the possible sequences. The care in the choice of the charset is important to avoid a waste of memory with data which will never be used by the program.
+
+**** Positive integers
+#+BEGIN_SRC C++
+uint8_t num;
+//num assumes some value
+disp.out<font::_8x8>(0, 0, num);
+#+END_SRC
+
+**** Commands
+You must send at least a command to power on the display:
+#+BEGIN_SRC C++
+disp.on();
+#+END_SRC
+You can also change the contrast of the display or invert the value of the images that are displayed by the device:
+#+BEGIN_SRC C++
+disp.contrast(1); //the lowest possible contrast
+disp.inverse(); //bit 1 changes to bit 0 and vice versa
+#+END_SRC
+
+***** Optimizations to send commands
+Instead of make independent calls for each command, you should first consider if the commands can be sent during the instantiation of the object that represents the display. Let's say that you would like to set a ~contrast~ of value ~1~ and enable the ~inverse~ mode:
+#+BEGIN_SRC C++
+using namespace att85::ssd1306::commands;
+display_128x32<> disp{contrast, of<1>{}, inverse};
+#+END_SRC
+The above code is more efficient in space and in time because it reuses the context to send commands that are available by the constructor. If it isn't possible because you need to send the commands in a later time, you can use a single context to send all the commands:
+#+BEGIN_SRC C++
+disp.commands([&](auto&& disp) {
+    disp.contrast(1);
+    disp.inverse();
+    disp.on();
+});
+#+END_SRC
+
+** Requirements
+1. c++17
+2. avr-gcc >= 8.2.0 with support to C++ language
+3. avrlibc
+
+*Note:* this work doesn't use the ~libstdc++~ for now.
+
+** Key points
+*** High level of abstraction
+:PROPERTIES:
+:CUSTOM_ID: high-level-of-abstraction
+:END:
+The gory details of a driver, protocol, procedure or device are hidden from the programmer when it is possible. This approach tends to offer a smaller and concise code avoiding error-prone programming practices. Compile-time strategies like the usage of metaprogramming are used to achieve these goals as also to transform some run-time bugs in compile-time bugs which increases the robustness of the software.
+*** Code reusability
+:PROPERTIES:
+:CUSTOM_ID: code-reusability
+:END:
+The components are developed using the generic programming(GP) as the main paradigm. One problem, like a sequence of beeps and pauses to be sent to a buzzer is broken into a group of smaller problems which are solved through a set of fundamental abstractions based on concepts that are highly reusable. For example, the above problem is solved reusing an abstraction of a pulse(signal processing), a deadline timer and a pulse generator.
+*** High space efficiency
+:PROPERTIES:
+:CUSTOM_ID: high-space-efficiency
+:END:
+A set of decisions related to the specific usage of the component by the programmer, should be taken to achieve the best code size in memory. A lot of these decisions can be determined in compile-time by the own component, leaving the programmer without some worries about specific cases or nasty details about the code that must be generated to achieve the best performance.
+
+*Important:* all the components are developed with the optimization in space ~-Os~ of the ~avr-g++~ in mind.

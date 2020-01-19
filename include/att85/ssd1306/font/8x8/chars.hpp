@@ -1,0 +1,354 @@
+
+// Copyright Ricardo Calheiros de Miranda Cosme 2020.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE or copy at
+//  http://www.boost.org/LICENSE_1_0.txt)
+
+#pragma once
+
+#include "att85/ssd1306/detail/send_byte.hpp"
+#include "att85/ssd1306/detail/ATT85_SSD1306_GDDRAM.hpp"
+
+namespace att85 { namespace ssd1306 { namespace font { 
+
+struct _8x8 {
+
+constexpr static uint8_t width{8}, height{8};
+
+constexpr static uint8_t _0[] = {
+0b00111100,
+0b01000010,
+0b01000010,
+0b01000010,
+0b01000010,
+0b01000010,
+0b01000010,
+0b00111100
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_0);
+
+constexpr static uint8_t _1[] = {
+0b00011000,
+0b00101000,
+0b01001000,
+0b00001000,
+0b00001000,
+0b00001000,
+0b00001000,
+0b00111110
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_1);
+
+constexpr static uint8_t _2[] = {
+0b00011100,
+0b00100010,
+0b01000010,
+0b00000100,
+0b00001000,
+0b00010000,
+0b00100000,
+0b01111110
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_2);
+
+constexpr static uint8_t _3[] = {
+0b01111100,
+0b00000010,
+0b00000100,
+0b00011000,
+0b00011000,
+0b00000100,
+0b00000010,
+0b01111100,
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_3);
+    
+constexpr static uint8_t _4[] = {
+0b00000010,
+0b00000110,
+0b00001010,
+0b00010010,
+0b00100010,
+0b01111111,
+0b00000010,
+0b00000010,
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_4);
+
+constexpr static uint8_t _5[] = {
+0b01111100,
+0b01000000,
+0b01000000,
+0b01111100,
+0b00000010,
+0b00000010,
+0b00000010,
+0b01111100,
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_5);
+
+constexpr static uint8_t _6[] = {
+0b00111100,
+0b01000000,
+0b01000000,
+0b01111100,
+0b01000010,
+0b01000010,
+0b01000010,
+0b00111100,
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_6);
+
+constexpr static uint8_t _7[] = {
+0b11111110,
+0b00000010,
+0b00000100,
+0b00001000,
+0b00010000,
+0b00100000,
+0b01000000,
+0b10000000
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_7);
+
+constexpr static uint8_t _8[] = {
+0b01111100,
+0b10000010,
+0b10000010,
+0b01111100,
+0b10000010,
+0b10000010,
+0b10000010,
+0b01111100
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_8);
+    
+constexpr static uint8_t _9[] = {
+0b00011100,
+0b00100010,
+0b01000010,
+0b01000010,
+0b00111110,
+0b00000010,
+0b00000100,
+0b00111000
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_9);
+    
+constexpr static uint8_t _space[] = {
+0b00000000,
+0b00000000,
+0b00000000,
+0b00000000,
+0b00000000,
+0b00000000,
+0b00000000,
+0b00000000
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_space);
+    
+constexpr static uint8_t _a[] = {
+0b00111110,
+0b00000001,
+0b00000001,
+0b00111111,
+0b01000001,
+0b01000001,
+0b01000001,
+0b00111110
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_a);
+    
+constexpr static uint8_t _d[] = {
+0b00000001,
+0b00000001,
+0b00000001,
+0b00111101,
+0b01000011,
+0b01000001,
+0b01000011,
+0b00111101
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_d);
+   
+constexpr static uint8_t _D[] = {
+0b01111100,
+0b01000010,
+0b01000001,
+0b01000001,
+0b01000001,
+0b01000001,
+0b01000010,
+0b01111100
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_D);
+    
+constexpr static uint8_t _e[] = {
+0b00000000,
+0b00111100,
+0b01000010,
+0b01000001,
+0b01111110,
+0b01000000,
+0b01000000,
+0b00111110
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_e);
+    
+constexpr static uint8_t _l[] = {
+0b00111000,
+0b00001000,
+0b00001000,
+0b00001000,
+0b00001000,
+0b00001000,
+0b00001000,
+0b00001110
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_l);
+    
+constexpr static uint8_t _m[] = {
+0b00111110,
+0b01001001,
+0b01001001,
+0b01001001,
+0b01001001,
+0b01001001,
+0b01001001,
+0b01001001
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_m);
+    
+constexpr static uint8_t _n[] = {
+0b00000000,
+0b01011100,
+0b01100010,
+0b01000001,
+0b01000001,
+0b01000001,
+0b01000001,
+0b01000001
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_n);
+    
+constexpr static uint8_t _o[] = {
+0b00000000,
+0b00111100,
+0b01000010,
+0b10000001,
+0b10000001,
+0b10000001,
+0b01000010,
+0b00111100
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_o);
+    
+constexpr static uint8_t _O[] = {
+0b00011100,
+0b00100010,
+0b01000001,
+0b01000001,
+0b01000001,
+0b01000001,
+0b00100010,
+0b00011100
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_O);
+    
+constexpr static uint8_t _r[] = {
+0b00111100,
+0b01000010,
+0b01000010,
+0b01000000,
+0b01000000,
+0b01000000,
+0b01000000,
+0b01000000
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_r);
+    
+constexpr static uint8_t _less[] = {
+0b00000100,
+0b00001000,
+0b00010000,
+0b00100000,
+0b01100000,
+0b00010000,
+0b00001000,
+0b00000100
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_less);
+    
+constexpr static uint8_t _greater[] = {
+0b01000000,
+0b00100000,
+0b00010000,
+0b00001000,
+0b00001100,
+0b00010000,
+0b00100000,
+0b01000000
+};
+ATT85_SSD1306_GDDRAM_ARRAY_8_BYTES(_greater);
+
+struct digits {
+constexpr static uint8_t fst_idx = 48;
+constexpr static uint8_t seq[] PROGMEM = {
+    ATT85_SSD1306_GDDRAM_8_BYTES(_0)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_1)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_2)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_3)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_4)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_5)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_6)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_7)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_8)
+    ATT85_SSD1306_GDDRAM_8_BYTES(_9)
+};
+};
+    
+};
+
+}//namespace font
+
+template<typename Display, typename Font, char c>
+struct send_char;
+
+#define ATT85_SSD1306_SPEC_SEND_CHAR_8x8(T, C)       \
+template<typename Display>                           \
+struct send_char<Display, font::_8x8, C> {           \
+    using Sda = typename Display::Sda;               \
+    using Scl = typename Display::Scl;               \
+    constexpr static void send() {                   \
+        detail::send_char<Sda,                       \
+                          Scl,                       \
+                          font::_8x8>(               \
+            font::_8x8::T ##_## gddram);             \
+    }                                                \
+};
+
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_0, '0')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_1, '1')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_2, '2')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_3, '3')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_4, '4')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_5, '5')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_6, '6')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_7, '7')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_8, '8')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_9, '9')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_less,'<')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_greater,'>')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_space,' ')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_a, 'a')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_d, 'd')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_D, 'D')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_e, 'e')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_l, 'l')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_m, 'm')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_n, 'n')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_o, 'o')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_O, 'O')
+ATT85_SSD1306_SPEC_SEND_CHAR_8x8(_r, 'r')
+
+}}//namespace att85::ssd1306

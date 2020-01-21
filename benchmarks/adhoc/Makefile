@@ -9,7 +9,7 @@ OBJDUMP=avr-objdump
 
 CXXFLAGS=-std=$(STD_CXX) -g -mmcu=$(MCU_TARGET) -Wall $(OPTIMIZE) -I ../../include -I ../../include/att85
 
-demos = ctor ctor_adhoc
+demos = ctor ctor_adhoc commands commands_naive
 
 all: $(demos:%=%.elf) $(demos:%=%.lst) $(demos:%=%.s)
 

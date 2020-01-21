@@ -138,9 +138,13 @@ A set of decisions related to the specific usage of the component by the program
 
 *Important:* all the components are developed with the optimization in space ~-Os~ of the ~avr-g++~ in mind.
 ** Benchmarks
+*** Versus adhoc solutions
+During the development I like to verify if my abstractions are really working without decreasing the space performance. I check my solutions with adhoc alternatives which reuses basic functions used by the proposed solution. The benchmarks can be run through the script ~benchmarks/adhoc/make_check_size.sh~. For each problem there is a related file with the suffix ~_adhoc~. For example, to benchmark ~display::display()~ there is a file ~ctor.cpp~ and another file ~ctor_adhoc.cpp~. The space from an adhoc solution shouldn't be greater than the att85 solution.
+
 *** Other libraries
 **** [[https://bitbucket.org/tinusaur/ssd1306xled][Tinusaur SSD1306xLED]]
-We compare programs to print the string "alarm" in the first row and the 50 column of a display 128x32. 
+We compare programs to print the string ~alarm~ in the first row and the 50 column of a display 128x32. 
+
 The other library solution(~third_party/tinusaur_SSD1306xLED/third_party.cpp~):
 | section | text | data | bss |
 | bytes   | 2446 |   16 |   9 |

@@ -141,9 +141,9 @@ A set of decisions related to the specific usage of the component by the program
 *** Versus adhoc or naive solutions
 During the development I like to verify if my abstractions are really working without decreasing the space performance. I check my solutions with adhoc alternatives which reuses basic functions used by the proposed solution. I also like to check the efficiency of optional solutions to increase the performance, like ~display::commands()~ or compile-time strings, for example.
 
-For each problem there is a related file with the suffix ~_adhoc~ or ~naive~. For example, to benchmark ~display::display()~ there is a file ~ctor.cpp~ and another file ~ctor_adhoc.cpp~. 
+For each problem there is a related file with the suffix ~_adhoc~ or ~_naive~. For example, to benchmark ~display::display()~ there is a file ~ctor.cpp~ and another file ~ctor_adhoc.cpp~. 
 
-The benchmarks can be run through the script ~benchmarks/adhoc/make_check_size.sh~. The performance space from an adhoc or naive solution shouldn't be better than the att85 solution.
+The benchmarks can be run through the script ~benchmarks/adhoc_naive/make_check_size.sh~. The performance space from an adhoc or naive solution shouldn't be better than the att85 solution.
 
 *** Versus other libraries
 **** [[https://bitbucket.org/tinusaur/ssd1306xled][Tinusaur SSD1306xLED]]

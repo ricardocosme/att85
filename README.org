@@ -137,3 +137,17 @@ The components are developed using the generic programming(GP) as the main parad
 A set of decisions related to the specific usage of the component by the programmer, should be taken to achieve the best code size in memory. A lot of these decisions can be determined in compile-time by the own component, leaving the programmer without some worries about specific cases or nasty details about the code that must be generated to achieve the best performance.
 
 *Important:* all the components are developed with the optimization in space ~-Os~ of the ~avr-g++~ in mind.
+** Benchmarks
+*** Other libraries
+**** [[https://bitbucket.org/tinusaur/ssd1306xled][Tinusaur SSD1306xLED]]
+We compare programs to print the string "alarm" in the first row and the 50 column of a display 128x32. 
+The other library solution(~third_party/tinusaur_SSD1306xLED/third_party.cpp~):
+| section | text | data | bss |
+| bytes   | 2446 |   16 |   9 |
+
+The att85 solution(~third_party/tinusaur_SSD1306xLED/att85.cpp~):
+| section | text | data | bss |
+| bytes   |  336 |    0 |   0 |
+
+Builds using ~avr-gcc 8.2.0~ with ~-Os~.
+

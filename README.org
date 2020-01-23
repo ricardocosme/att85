@@ -158,4 +158,23 @@ The att85 solution(~third_party/tinusaur_SSD1306xLED/att85.cpp~):
 | bytes   |  336 |    0 |   0 |
 
 Builds using ~avr-gcc 8.2.0~ with ~-Os~.
+** Arduino
+You need an Arduino IDE which uses an ~avr-gcc~ with the support to C++17 enabled. It may be necessary to change the C++ standard that is used by the Arduino IDE. You should edit the file ~platform.txt~ and look for the property ~compiler.cpp.flags~. Take a look at the flag ~-std=~, it must be a value that supports C++17, for example: ~-std=c++17~. BTW, this work was tested with Arduino 1.8.10.
 
+*** Installation
+Compress the folder ~include/att85~ into a zip file and import the library through the Arduino IDE. The path to be taken using Arduino IDE 1.8.10 is: *Sketch* -> *Include Library* -> *Add. ZIP Library...*
+
+*** Demo
+#+BEGIN_SRC C++
+#include <att85.hpp>
+
+using namespace att85::ssd1306;
+
+void setup() {
+  display_128x32<att85::pb1> disp;
+  disp.out<font::_8x8>(0, 0, ATT85_SSD1306_STR("alarm"));
+  disp.on();
+}
+
+void loop() {}
+#+END_SRC

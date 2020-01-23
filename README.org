@@ -113,9 +113,8 @@ disp.commands([&](auto&& disp) {
 #+END_SRC
 
 ** Requirements
-1. c++17
-2. avr-gcc >= 8.2.0 with support to C++ language
-3. avrlibc
+1. avr-gcc >= 7.3.0 with support to C++17 enabled (~-std=c++17~)
+2. avrlibc
 
 *Note:* this work doesn't use the ~libstdc++~ for now.
 

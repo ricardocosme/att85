@@ -9,7 +9,7 @@ OBJDUMP=avr-objdump
 
 CXXFLAGS=-DF_CPU=8000000UL -std=$(STD_CXX) -g -mmcu=$(MCU_TARGET) -Wall $(OPTIMIZE) -I ../../include -I ../../include/att85
 
-demos = init_display char_8x8 two_char_8x8 commands 8x8 16x32 runtime_sequence_16x32 number_16x32 lowest_freq_display alarm
+demos = init_display char_8x8 two_char_8x8 commands 8x8 16x32 runtime_sequence_16x32 number_16x32 lowest_freq_display alarm alphabet
 
 all: $(demos:%=%.elf) $(demos:%=%.lst) $(demos:%=%.s)
 

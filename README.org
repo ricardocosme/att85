@@ -1,5 +1,5 @@
 * att85
-It's a collection of generic components written in C++17 to programming ATtiny85 microcontrollers with a [[#high-level-of-abstraction][high level of abstraction]], [[#code-reusability][code reusability]] and [[#high-space-efficiency][high space(memory) efficiency]].
+It's a collection of generic components written in C++17 to program ATtiny85 microcontrollers with a [[#high-level-of-abstraction][high level of abstraction]], [[#code-reusability][code reusability]] and [[#high-space-efficiency][high space(memory) efficiency]].
 
 ** Components 
 *** ssd1306

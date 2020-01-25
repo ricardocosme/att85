@@ -8,6 +8,7 @@
 
 #include <att85/pin.hpp>
 #include <att85/ssd1306/c_str.hpp>
+#include <att85/ssd1306/detail/USI.hpp>
 #include <att85/ssd1306/detail/clear.hpp>
 #include <att85/ssd1306/detail/command.hpp>
 #include <att85/ssd1306/detail/data.hpp>
@@ -61,11 +62,16 @@ struct scoped_display {
 //divisible by eight and the default value is 64.
 //
 //Scl: The pin that represents the i2c clock signal SCL. The default
-//is the pin att85::scl which is the pin pb2 in Attiny85.
+//is the pin att85::scl which is the pin pb2 in Attiny85. If possible,
+//it's better to use the SCL pin provided by the microcontroller
+//because the USI(Universal Serial Interface) hardware can be used to
+//optimize the program.
 //
 //Sda: The pin that represents the line SDA which is the i2d data
 //signal. The default is the pin att85::sda which is the pin pb0 in
-//Attiny85.
+//Attiny85. If possible, it's better to use the SDA pin provided by
+//the microcontroller because the USI(Universal Serial Interface)
+//hardware can be used to optimize the program.
 //
 //Addr: slave address of the display. The value should be 0x78 or
 //0F0. The default is 0x78.
@@ -152,6 +158,15 @@ public:
     constexpr display(Cmds...) {
         DDRB |= (1 << Sda::num);
         DDRB |= (1 << Scl::num);
+        if constexpr(detail::USI<Sda, Scl>())
+            USICR = (0<<USISIE)
+                | (0<<USIOIE)
+                | (1<<USIWM1)
+                | (0<<USIWM0)
+                | (1<<USICS1)
+                | (0<<USICS0)
+                | (1<<USICLK)
+                | (0<<USITC);
         detail::reset<display, Cmds::cmd...>();
         if constexpr(is_same<ClearOnInitPolicy, ClearOnInit>::value)
             detail::clear<display>();

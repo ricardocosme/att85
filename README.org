@@ -36,7 +36,7 @@ int main() {
     while(true);
 }
 #+END_SRC
-This program occupies 336 bytes of the program memory space using ~avr-g++ 8.2.0~ with ~-Os~.
+This program occupies 322 bytes of the program memory space using ~avr-g++ 8.2.0~ with ~-Os~.
 
 **** The first step
 The first step is construct an object that represents the display. The class template ~display~ has a collection of parameters to model the display that will be used in the circuit. There are aliases to common usages like a display with a 128x32 or 128x64 resolution that is manipulated through the pins SDA(PB0) and SCL(PB2), for example:
@@ -46,7 +46,16 @@ display_128x32<> disp; //this object is ready to receive commands and requests t
 Actually, this alias implies in other configurations like a display that uses the *Charge Pump Regulator* and have the slave address ~0x78~. 
 
 ***** My display is connected through other pins, have other resolution or slave address. What I need to do?
-You can customize the instance of the class template with the arguments that are suitable to your case:
+If possible it's better to use the SDA and SCL pins provided by the
+microcontroller because the USI(Universal Serial Interface) hardware
+can be used to optimize the program. The program will be smaller and
+faster than a version that uses other pins. In the last case the
+communication is taken by a solution that is only using software to
+send a byte. Take your measures, please.
+
+You can customize the instance
+of the class template with the arguments that are suitable to your
+case:
 #+BEGIN_SRC C++
 template<uint8_t Columns = 128,
          uint8_t Rows = 64,
@@ -154,7 +163,7 @@ The other library solution(~third_party/tinusaur_SSD1306xLED/third_party.cpp~):
 
 The att85 solution(~third_party/tinusaur_SSD1306xLED/att85.cpp~):
 | section | text | data | bss |
-| bytes   |  336 |    0 |   0 |
+| bytes   |  322 |    0 |   0 |
 
 Builds using ~avr-gcc 8.2.0~ with ~-Os~.
 ** Arduino

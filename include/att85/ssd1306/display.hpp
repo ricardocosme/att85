@@ -76,6 +76,10 @@ struct scoped_display {
 //Addr: slave address of the display. The value should be 0x78 or
 //0F0. The default is 0x78.
 //
+//COM_Pins_Hardware: COM pins hardware configuration. The default is
+//0x12, which means that the layout of "Alternative COM pin
+//configuration" is used without a COM left/right remap.
+//
 //ClearOnInitPolicy: ClearOnInit or NoClearOnInit
 //  Policy to choose if the display will be clear on the
 //  initialization. Take a look at policy.hpp.
@@ -114,6 +118,7 @@ template<uint8_t Columns = 128,
          typename Scl_ = scl,
          typename Sda_ = sda,
          uint8_t Addr_ = 0b1111000 /*0x78*/,
+         uint8_t COM_Pins_Hardware_ = 0x12,
          typename ClearOnInitPolicy = ClearOnInit,
          typename ChargePumpPolicy_ = commands::ChargePump,
          typename DisplayClock_ = DefDisplayClock>
@@ -124,6 +129,7 @@ public:
     using ChargePumpPolicy = ChargePumpPolicy_;
     using DisplayClockPolicy = DisplayClock_;
     constexpr static uint8_t Addr = Addr_;
+    constexpr static uint8_t COM_Pins_Hardware = COM_Pins_Hardware_;
     constexpr static uint8_t columns = Columns;
     constexpr static uint8_t rows = Rows;
     constexpr static uint8_t pages = Rows / 8;
@@ -299,6 +305,7 @@ using display_128x32 = display<
     Scl,
     Sda,
     Addr,
+    0x02,
     ClearOnInitPolicy,
     ChargePumpPolicy,
     DisplayClock>;
@@ -316,6 +323,7 @@ using display_128x64 = display<
     Scl,
     Sda,
     Addr,
+    0x12,
     ClearOnInitPolicy,
     ChargePumpPolicy,
     DisplayClock>;

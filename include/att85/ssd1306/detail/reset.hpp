@@ -17,11 +17,11 @@ namespace att85 { namespace ssd1306 { namespace detail {
 
 using namespace commands;
 
-#define ATT85_SSD1306_FIXED_CMDS(Rows)  \
+#define ATT85_SSD1306_FIXED_CMDS(Rows, COM_Pins_Hardware)      \
     0x20, 0x01, /*Vertical Addressing Mode*/ \
     0x22, 0x00, (Rows / 8) - 1, /*Set page address*/  \
     0xC8, /*COM Output Scan Direction*/ \
-    0xDA, 0x02, /*COM Pins Hardware Configuration*/ \
+    0xDA, COM_Pins_Hardware, /*COM Pins Hardware Configuration*/ \
     0xA1, /*Segment Re-map*/  \
     0xA8, Rows - 1, /*Multiplex ratio*/
         
@@ -37,7 +37,7 @@ struct setup { constexpr static uint8_t cmds[] [[gnu::__progmem__]] = {bytes...}
 template<typename Display, typename DisplayClock, uint8_t... bytes>
 inline auto handle_cmds(ChargePump, enable_if_t<!is_same<DisplayClock, DefDisplayClock>::value, DisplayClock>) {
     return setup<
-        ATT85_SSD1306_FIXED_CMDS(Display::rows)
+        ATT85_SSD1306_FIXED_CMDS(Display::rows, Display::COM_Pins_Hardware)
         ATT85_SSD1306_CHARGE_PUMP_CMD
         ATT85_SSD1306_DISPLAY_CLOCK_CMD(DisplayClock)
         bytes...>{};
@@ -46,7 +46,7 @@ inline auto handle_cmds(ChargePump, enable_if_t<!is_same<DisplayClock, DefDispla
 template<typename Display, typename DisplayClock, uint8_t... bytes>
 inline auto handle_cmds(DisableChargePump, enable_if_t<!is_same<DisplayClock, DefDisplayClock>::value, DisplayClock>) {
     return setup<
-        ATT85_SSD1306_FIXED_CMDS(Display::rows)
+        ATT85_SSD1306_FIXED_CMDS(Display::rows, Display::COM_Pins_Hardware)
         ATT85_SSD1306_DISPLAY_CLOCK_CMD(DisplayClock)
         bytes...>{};
 }
@@ -54,7 +54,7 @@ inline auto handle_cmds(DisableChargePump, enable_if_t<!is_same<DisplayClock, De
 template<typename Display, typename DisplayClock, uint8_t... bytes>
 inline auto handle_cmds(ChargePump, enable_if_t<is_same<DisplayClock, DefDisplayClock>::value, DisplayClock>) {
     return setup<
-        ATT85_SSD1306_FIXED_CMDS(Display::rows)
+        ATT85_SSD1306_FIXED_CMDS(Display::rows, Display::COM_Pins_Hardware)
         ATT85_SSD1306_CHARGE_PUMP_CMD
         bytes...>{};
 }
@@ -62,7 +62,7 @@ inline auto handle_cmds(ChargePump, enable_if_t<is_same<DisplayClock, DefDisplay
 template<typename Display, typename DisplayClock, uint8_t... bytes>
 inline auto handle_cmds(DisableChargePump, enable_if_t<is_same<DisplayClock, DefDisplayClock>::value, DisplayClock>) {
     return setup<
-        ATT85_SSD1306_FIXED_CMDS(Display::rows)
+        ATT85_SSD1306_FIXED_CMDS(Display::rows, Display::COM_Pins_Hardware)
         bytes...>{};
 }
 

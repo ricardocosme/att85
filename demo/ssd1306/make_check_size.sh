@@ -1,6 +1,7 @@
 #!/bin/bash
 
 make $@
+avr-size 8x8.elf
 avr-size alarm.elf
 avr-size demo.elf
 avr-size char_8x8.elf

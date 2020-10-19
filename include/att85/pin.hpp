@@ -73,7 +73,7 @@ struct pb5 : portB {
 template<typename Pin>
 [[gnu::always_inline]]
 constexpr inline void high()
-{ _SFR_IO8(Pin::port::addr) |= (1 << Pin::num); }
+{ _SFR_IO8(Pin::port::addr) = _SFR_IO8(Pin::port::addr) | (1 << Pin::num); }
 
 template<typename Pin>
 inline void hi()
@@ -82,7 +82,7 @@ inline void hi()
 template<typename Pin>
 [[gnu::always_inline]]
 constexpr inline void low()
-{ _SFR_IO8(Pin::port::addr) &= ~(1 << Pin::num); }
+{ _SFR_IO8(Pin::port::addr) = _SFR_IO8(Pin::port::addr) & ~(1 << Pin::num); }
 
 template<typename Pin>
 inline void lo()

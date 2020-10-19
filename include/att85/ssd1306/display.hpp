@@ -162,8 +162,8 @@ public:
     //implementation.
     template<typename... Cmds>
     constexpr display(Cmds...) {
-        DDRB |= (1 << Sda::num);
-        DDRB |= (1 << Scl::num);
+        DDRB = DDRB | (1 << Sda::num);
+        DDRB = DDRB | (1 << Scl::num);
         if constexpr(detail::USI<Sda, Scl>())
             USICR = (0<<USISIE)
                 | (0<<USIOIE)

@@ -166,6 +166,23 @@ The att85 solution(~third_party/tinusaur_SSD1306xLED/att85.cpp~):
 | bytes   |  322 |    0 |   0 |
 
 Builds using ~avr-gcc 8.2.0~ with ~-Os~.
+**** [[https://github.com/datacute/Tiny4kOLED][Tiny4kOLED 1.5.4]] [Arduino]
+The program should clear the display in the initialization and print the string ~alarm~ in the first row and first column of a 128x64 display. 
+
+The other library solution with 6x8(~third_party/arduino/Tiny4kOLED_1_5_4v/Tiny4kOLED_alarm.cpp~):
+| section | text | data | bss |
+| bytes   | 2572 |   22 |  68 |
+Note: This version of Tiny4kOLED doesn't have a 8x8 font. The font 6x8 was chosen to give an advantage to the library in this benchmark.
+
+The att85 solution with 8x8 font and compile-time strings(~third_party/arduino/Tiny4kOLED_1_5_4v/alarm_compiletime.cpp~):
+| section | text | data | bss |
+| bytes   |  530 |    0 |   9 |
+
+The att85 solution with 8x8 font and run-time strings(~third_party/arduino/Tiny4kOLED_1_5_4v/alarm_runtime.cpp~):
+| section | text | data | bss |
+| bytes   |  720 |    6 |   9 |
+
+Builds using ~Arduino IDE 1.8.13~ with ~std=c++17~ enabled.
 ** Arduino
 You need an Arduino IDE which uses an ~avr-gcc~ with the support to C++17 enabled. It may be necessary to change the C++ standard that is used by the Arduino IDE. You should edit the file ~platform.txt~ and look for the property ~compiler.cpp.flags~. Take a look at the flag ~-std=~, it must be a value that supports C++17, for example: ~-std=c++17~. BTW, this work was tested with Arduino 1.8.10.
 

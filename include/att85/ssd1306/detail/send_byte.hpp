@@ -45,10 +45,11 @@ constexpr inline void send_byte(uint8_t byte) {
 
        USIDR = 0xFF; // Release SDA.
        clk_pulse();
-    } else { //Software solution when USI isn 't available
-        //TODO: Do arithmetic operations using bytes instead of words.
-        for(int8_t i = 7; i >= 0; --i)     {
-            (byte & (1 << i)) ? high<Sda>() : low<Sda>();
+    } else { //When USI isn't available
+        for(uint8_t i = 8; i > 0; --i) {
+            low<Sda>();
+            if(byte & 0x80) high<Sda>();
+            byte <<= 1;
             detail::clk_pulse<Scl>();
         }
         //acknowledge bit

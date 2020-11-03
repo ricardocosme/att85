@@ -7,17 +7,16 @@
 #pragma once
 
 #include <att85/ssd1306/detail/send_char.hpp>
-#include <att85/type_traits/enable_if.hpp>
-#include <att85/type_traits/is_same.hpp>
+#include <type_traits>
 
 namespace att85 { namespace ssd1306 { namespace detail {
 
 template<typename Display, typename Font, typename UInt>
-constexpr inline enable_if_t<
-    is_same<UInt, uint8_t>::value
-    || is_same<UInt, uint16_t>::value
-    || is_same<UInt, uint32_t>::value
-    || is_same<UInt, uint64_t>::value>
+constexpr inline std::enable_if_t<
+    std::is_same<UInt, uint8_t>::value
+    || std::is_same<UInt, uint16_t>::value
+    || std::is_same<UInt, uint32_t>::value
+    || std::is_same<UInt, uint64_t>::value>
 out(UInt n)  {
     using Sda = typename Display::Sda;
     using Scl = typename Display::Scl;

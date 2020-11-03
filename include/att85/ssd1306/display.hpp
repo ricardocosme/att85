@@ -174,7 +174,7 @@ public:
                 | (1<<USICLK)
                 | (0<<USITC);
         detail::reset<display, Cmds::cmd...>();
-        if constexpr(is_same<ClearOnInitPolicy, ClearOnInit>::value)
+        if constexpr(std::is_same<ClearOnInitPolicy, ClearOnInit>::value)
             detail::clear<display>();
     }
 

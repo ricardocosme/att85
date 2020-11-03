@@ -122,8 +122,9 @@ disp.commands([&](auto&& disp) {
 #+END_SRC
 
 ** Requirements
-1. avr-gcc >= 7.3.0 with support to C++17 enabled (~-std=c++17~)
-2. avrlibc
+1. ~avr-gcc~ >= 7.3.0 with support to C++17 enabled (~-std=c++17~)
+2. ~avrlibc 2.0~
+3. ~<type_traits>~ [If there isn't a freestanging implementation of ~libstdc++~, [[https://github.com/ricardocosme/type_traits][this subset of the header can be used.]]
 
 *Note:* this work doesn't use the ~libstdc++~ for now.
 

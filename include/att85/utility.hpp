@@ -6,11 +6,11 @@
 
 #pragma once
 
-#include <att85/type_traits.hpp>
+#include <type_traits>
 
 namespace att85 {
 
-template<typename T, typename R = remove_reference_t<T>&&>
+template<typename T, typename R = std::remove_reference_t<T>&&>
 constexpr R move(T&& o)
 { return static_cast<R>(o); }
 
